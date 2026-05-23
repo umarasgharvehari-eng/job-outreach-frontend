@@ -1,0 +1,156 @@
+.ops-hero {
+  background: linear-gradient(135deg, #0f172a, #1d4ed8);
+  color: white;
+  border-radius: 24px;
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+
+  span {
+    color: #bfdbfe;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  h1 {
+    margin: 8px 0;
+    font-size: 36px;
+  }
+
+  p {
+    margin: 0;
+    color: #dbeafe;
+  }
+}
+
+.hero-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.health-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.health-card,
+.stat-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 16px;
+}
+
+.health-card {
+  span {
+    display: block;
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  strong {
+    display: block;
+    color: #0f172a;
+    font-size: 18px;
+    margin-bottom: 8px;
+    word-break: break-word;
+  }
+
+  strong.good {
+    color: #166534;
+  }
+
+  strong.bad {
+    color: #991b1b;
+  }
+
+  small {
+    color: #64748b;
+  }
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.stat-card {
+  min-height: 130px;
+
+  p {
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  h2 {
+    margin: 14px 0 8px;
+    font-size: 30px;
+    color: #0f172a;
+  }
+
+  span {
+    color: #94a3b8;
+    font-size: 12px;
+  }
+}
+
+.warning {
+  border-color: #fde68a;
+  background: #fffbeb;
+}
+
+.success {
+  border-color: #bbf7d0;
+  background: #f0fdf4;
+}
+
+.danger {
+  border-color: #fecaca;
+  background: #fef2f2;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 16px;
+}
+
+.logs-card {
+  max-height: 260px;
+  overflow: auto;
+
+  div {
+    font-family: Consolas, monospace;
+    font-size: 12px;
+    color: #334155;
+    padding: 7px 0;
+    border-bottom: 1px solid #e2e8f0;
+  }
+}
+
+@media (max-width: 1200px) {
+  .health-grid,
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dashboard-grid,
+  .ops-hero {
+    grid-template-columns: 1fr;
+    display: grid;
+    gap: 14px;
+  }
+}

@@ -1,0 +1,67 @@
+<div class="app-shell">
+
+  <aside class="sidebar">
+
+    <div class="brand">
+      <div class="logo">🚀</div>
+
+      <div>
+        <h2>Job Outreach</h2>
+        <p>Automation Dashboard</p>
+      </div>
+    </div>
+
+    <nav>
+
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        Overview
+      </a>
+
+      <a routerLink="/new-jobs" routerLinkActive="active">
+        New Jobs
+      </a>
+
+      <a routerLink="/applications" routerLinkActive="active">
+        Applications
+      </a>
+
+      <a routerLink="/followups" routerLinkActive="active">
+        Follow-ups
+      </a>
+
+      <a routerLink="/reports" routerLinkActive="active">
+        Reports
+      </a>
+
+    </nav>
+
+  </aside>
+
+  <main class="content">
+
+    <header class="topbar">
+
+      <div>
+        <h1>Dashboard</h1>
+        <p>
+          Manage outreach jobs, applications and follow-ups.
+        </p>
+      </div>
+
+      <div class="status">
+        API Connected
+      </div>
+
+    </header>
+
+    <section class="page-content">
+      <router-outlet></router-outlet>
+    </section>
+
+  </main>
+
+</div>

@@ -1,0 +1,146 @@
+<div class="page-header">
+  <div>
+    <h1>Reports</h1>
+    <p>Executive overview of job outreach, replies and follow-ups.</p>
+  </div>
+
+  <button class="refresh-btn" (click)="loadReports()" [disabled]="loading">
+    {{ loading ? 'Loading...' : 'Refresh Data' }}
+  </button>
+</div>
+
+<div class="hero-panel">
+  <div>
+    <span class="eyebrow">Outreach Health</span>
+    <h2>{{ replyRate }}% Reply Rate</h2>
+    <p>
+      {{ summary.totalReplies || 0 }} replies from {{ summary.appliedJobs || 0 }} applied jobs.
+      {{ summary.newJobsNotEmailed || 0 }} fresh jobs are still waiting for outreach.
+    </p>
+  </div>
+
+  <div class="hero-actions">
+    <button (click)="exportSummaryCsv()">Export Summary</button>
+    <button class="dark" (click)="exportApplicationsCsv()">Export Applications</button>
+  </div>
+</div>
+
+<div class="kpi-grid">
+  <div class="kpi-card">
+    <span>Total Jobs Found</span>
+    <strong>{{ summary.totalJobsFound || 0 }}</strong>
+    <small>Inbox + master job records</small>
+  </div>
+
+  <div class="kpi-card blue">
+    <span>Applied Jobs</span>
+    <strong>{{ summary.appliedJobs || 0 }}</strong>
+    <small>{{ outreachCoverage }}% outreach coverage</small>
+  </div>
+
+  <div class="kpi-card green">
+    <span>Total Replies</span>
+    <strong>{{ summary.totalReplies || 0 }}</strong>
+    <small>{{ replyRate }}% reply rate</small>
+  </div>
+
+  <div class="kpi-card purple">
+    <span>UK Jobs</span>
+    <strong>{{ summary.ukJobs || 0 }}</strong>
+    <small>UK opportunities detected</small>
+  </div>
+
+  <div class="kpi-card amber">
+    <span>Pending Follow-ups</span>
+    <strong>{{ summary.pendingFollowups || 0 }}</strong>
+    <small>{{ pendingRate }}% of applied jobs</small>
+  </div>
+
+  <div class="kpi-card red">
+    <span>New Jobs Not Emailed</span>
+    <strong>{{ summary.newJobsNotEmailed || 0 }}</strong>
+    <small>Waiting for first outreach</small>
+  </div>
+</div>
+
+<div class="insights-grid">
+  <div class="insight-card">
+    <h3>Pipeline Summary</h3>
+
+    <div class="progress-row">
+      <div>
+        <span>Outreach Coverage</span>
+        <strong>{{ outreachCoverage }}%</strong>
+      </div>
+      <div class="bar"><i [style.width.%]="outreachCoverage"></i></div>
+    </div>
+
+    <div class="progress-row">
+      <div>
+        <span>Reply Rate</span>
+        <strong>{{ replyRate }}%</strong>
+      </div>
+      <div class="bar"><i [style.width.%]="replyRate"></i></div>
+    </div>
+
+    <div class="progress-row">
+      <div>
+        <span>Pending Follow-ups</span>
+        <strong>{{ pendingRate }}%</strong>
+      </div>
+      <div class="bar"><i [style.width.%]="pendingRate"></i></div>
+    </div>
+  </div>
+
+  <div class="insight-card">
+    <h3>Action Needed</h3>
+
+    <div class="action-item">
+      <span>{{ summary.newJobsNotEmailed || 0 }}</span>
+      <p>new jobs still need first outreach email.</p>
+    </div>
+
+    <div class="action-item">
+      <span>{{ summary.pendingFollowups || 0 }}</span>
+      <p>applications are waiting for follow-up.</p>
+    </div>
+
+    <div class="action-item">
+      <span>{{ summary.ukJobs || 0 }}</span>
+      <p>UK jobs available for priority tracking.</p>
+    </div>
+  </div>
+</div>
+
+<div class="table-card">
+  <div class="table-header">
+    <div>
+      <h2>Recent Applications</h2>
+      <p>Latest outreach records from your master file.</p>
+    </div>
+
+    <span>{{ applications.length }} records</span>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Subject</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th>Sent At</th>
+        <th>Follow-up Due</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let item of applications.slice(0, 20)">
+        <td class="subject">{{ item.subject || item.job_title || '-' }}</td>
+        <td>{{ item.to_email || '-' }}</td>
+        <td><span class="status">{{ item.status || '-' }}</span></td>
+        <td>{{ item.sent_at || '-' }}</td>
+        <td>{{ item.followup_due_at || '-' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

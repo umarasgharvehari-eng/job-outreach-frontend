@@ -1,0 +1,84 @@
+<div class="page-header">
+  <div>
+    <h1>Follow-ups</h1>
+    <p>Applications that need follow-up.</p>
+  </div>
+
+  <button class="refresh-btn" (click)="loadFollowups()" [disabled]="loading">
+    {{ loading ? 'Loading...' : 'Refresh' }}
+  </button>
+</div>
+
+<div class="summary-row">
+  <div class="summary-card">
+    <span>Total Due</span>
+    <strong>{{ followups.length }}</strong>
+  </div>
+
+  <div class="summary-card warning">
+    <span>Selected</span>
+    <strong>{{ selectedFollowups.length }}</strong>
+  </div>
+</div>
+
+<div class="actions-bar">
+  <div class="left-actions">
+    <button class="select-btn" (click)="selectAll()">
+      Select All
+    </button>
+
+    <button class="clear-btn" (click)="clearSelection()">
+      Clear
+    </button>
+  </div>
+
+  <div class="right-actions">
+    <button
+      class="send-btn"
+      (click)="sendFollowups()"
+      [disabled]="selectedFollowups.length === 0 || sending"
+    >
+      {{ sending ? 'Sending...' : 'Send Follow-up' }}
+    </button>
+  </div>
+</div>
+
+<div class="message-box">
+  <label>Follow-up Message</label>
+
+  <textarea [(ngModel)]="customMessage"></textarea>
+</div>
+
+<div class="followups-grid">
+
+  <div
+    class="followup-card"
+    *ngFor="let item of followups"
+    [class.active]="item.selected"
+  >
+
+    <div class="top-row">
+
+      <input
+        type="checkbox"
+        [checked]="item.selected"
+        (change)="toggleSelection(item)"
+      />
+
+      <span class="badge">Due</span>
+
+    </div>
+
+    <h2>{{ getTitle(item) }}</h2>
+
+    <div class="email">
+      {{ getEmail(item) }}
+    </div>
+
+    <div class="meta">
+      <span>Due: {{ getDate(item) }}</span>
+    </div>
+
+  </div>
+
+</div>

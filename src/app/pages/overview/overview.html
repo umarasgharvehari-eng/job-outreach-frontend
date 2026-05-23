@@ -1,0 +1,100 @@
+<div class="ops-hero">
+  <div>
+    <span>Worker Health</span>
+    <h1>{{ workerHealth }}</h1>
+    <p>Mailbox monitoring, job sync and follow-up automation status.</p>
+  </div>
+
+  <div class="hero-actions">
+    <button class="btn btn-primary" (click)="startWorker()" [disabled]="state.running || loading">
+      Start Worker
+    </button>
+
+    <button class="btn btn-light" (click)="stopWorker()" [disabled]="!state.running || loading">
+      Stop Worker
+    </button>
+
+    <button class="btn btn-light" (click)="runInboxSync()" [disabled]="loading">
+      Sync Now
+    </button>
+  </div>
+</div>
+
+<div class="health-grid">
+  <div class="health-card">
+    <span>Worker Status</span>
+    <strong [class.good]="state.running">{{ state.running ? 'Running' : 'Stopped' }}</strong>
+    <small>PID: {{ state.worker_pid || '-' }}</small>
+  </div>
+
+  <div class="health-card">
+    <span>Last Sync Time</span>
+    <strong>{{ state.last_job_at || '-' }}</strong>
+    <small>{{ state.last_job || '-' }}</small>
+  </div>
+
+  <div class="health-card">
+    <span>Next Sync Time</span>
+    <strong>{{ nextSyncTime }}</strong>
+    <small>Inbox checks every 5 minutes</small>
+  </div>
+
+  <div class="health-card">
+    <span>Last Sync Status</span>
+    <strong [class.bad]="state.last_job_status === 'failed' || state.last_job_status === 'error'">
+      {{ state.last_job_status || '-' }}
+    </strong>
+    <small>Lock: {{ state.job_lock || 'none' }}</small>
+  </div>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card">
+    <p>Total Jobs Found</p>
+    <h2>{{ summary.totalJobsFound || 0 }}</h2>
+    <span>All detected jobs</span>
+  </div>
+
+  <div class="stat-card">
+    <p>Applied Jobs</p>
+    <h2>{{ summary.appliedJobs || 0 }}</h2>
+    <span>Emails/manual applications</span>
+  </div>
+
+  <div class="stat-card">
+    <p>UK Jobs</p>
+    <h2>{{ summary.ukJobs || 0 }}</h2>
+    <span>UK opportunities</span>
+  </div>
+
+  <div class="stat-card warning">
+    <p>Pending Follow-ups</p>
+    <h2>{{ summary.pendingFollowups || 0 }}</h2>
+    <span>Action needed</span>
+  </div>
+
+  <div class="stat-card success">
+    <p>Follow-ups Sent</p>
+    <h2>{{ summary.followupsSent || 0 }}</h2>
+    <span>Completed</span>
+  </div>
+
+  <div class="stat-card danger">
+    <p>New Jobs Not Emailed</p>
+    <h2>{{ summary.newJobsNotEmailed || 0 }}</h2>
+    <span>Waiting for outreach</span>
+  </div>
+</div>
+
+<div class="dashboard-grid">
+  <section class="card">
+    <h3>Automation Summary</h3>
+    <p>{{ summary.newJobsNotEmailed || 0 }} new jobs are waiting for first outreach.</p>
+    <p>{{ summary.pendingFollowups || 0 }} applications are due for follow-up.</p>
+  </section>
+
+  <section class="card logs-card">
+    <h3>Latest Worker Logs</h3>
+    <div *ngFor="let log of logs">{{ log }}</div>
+  </section>
+</div>

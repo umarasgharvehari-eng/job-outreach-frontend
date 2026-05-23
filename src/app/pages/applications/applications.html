@@ -1,0 +1,67 @@
+<div class="page-header">
+
+  <div>
+    <h2>Applications</h2>
+    <p>Track all outreach applications and statuses.</p>
+  </div>
+
+  <div class="count-badge">
+    {{ filteredApplications.length }} applications
+  </div>
+
+</div>
+
+<div class="table-wrapper card">
+
+  <table>
+
+    <thead>
+      <tr>
+        <th>Job Title</th>
+        <th>Recipient</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th>Follow-up Due</th>
+        <th>Applied Date</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr *ngFor="let job of filteredApplications">
+
+        <td class="title">
+          {{ extractJobTitle(job.subject) }}
+        </td>
+
+        <td>
+          {{ job.to_name || '-' }}
+        </td>
+
+        <td>
+          {{ job.to_email || '-' }}
+        </td>
+
+        <td>
+          <span class="status">
+            {{ job.status || '-' }}
+          </span>
+        </td>
+
+        <td>
+          <span class="followup">
+            {{ job.followup_due_at || '-' }}
+          </span>
+        </td>
+
+        <td>
+          {{ job.sent_at || '-' }}
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</div>

@@ -1,0 +1,236 @@
+<div class="page">
+
+  <div class="header">
+
+    <div>
+      <h1>New Jobs</h1>
+      <p>Latest jobs detected from your inbox.</p>
+    </div>
+
+    <button class="refresh-btn" (click)="loadJobs()">
+      Refresh
+    </button>
+
+  </div>
+
+  <div class="toolbar">
+
+    <div class="toolbar-left">
+
+      <button (click)="selectAll()">
+        Select All
+      </button>
+
+      <button (click)="clearSelection()">
+        Clear
+      </button>
+
+    </div>
+
+    <div class="toolbar-right">
+
+      <span class="selected-count">
+        {{ selectedCount }} selected
+      </span>
+
+      <button
+        class="apply-btn"
+        [disabled]="applying"
+        (click)="openReview()">
+
+        Review & Apply
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="message-box">
+
+    <label>
+      Outreach Message
+    </label>
+
+    <textarea
+      [(ngModel)]="customMessage"
+      rows="8">
+    </textarea>
+
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    Loading jobs...
+  </div>
+
+  <div class="jobs-grid">
+
+    <div
+      class="job-card"
+      *ngFor="let job of jobs">
+
+      <div class="card-top">
+
+        <input
+          type="checkbox"
+          [checked]="job.selected"
+          (change)="toggleSelection(job)" />
+
+        <span class="source">
+          {{ getSource(job) }}
+        </span>
+
+      </div>
+
+      <h2>
+        {{ getTitle(job) }}
+      </h2>
+
+      <div class="company">
+        {{ getCompany(job) }}
+      </div>
+
+      <div class="location">
+        {{ getLocation(job) }}
+      </div>
+
+      <p class="description">
+        {{ getDescription(job) }}
+      </p>
+
+      <div class="footer">
+
+        <span class="date">
+          {{ job.received_at || '-' }}
+        </span>
+
+        <div class="footer-actions">
+
+          <a
+            *ngIf="job.link"
+            [href]="job.link"
+            target="_blank">
+
+            Open Job
+          </a>
+
+          <button
+            type="button"
+            (click)="copyMessage(job)">
+
+            Copy Message
+          </button>
+
+          <button
+            type="button"
+            class="manual"
+            (click)="markApplied(job)">
+
+            Mark Applied
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div
+    class="modal-backdrop"
+    *ngIf="reviewOpen">
+
+    <div class="review-modal">
+
+      <div class="modal-header">
+
+        <div>
+
+          <h2>
+            Review Application
+          </h2>
+
+          <p>
+            Review your application before sending.
+          </p>
+
+        </div>
+
+        <button (click)="closeReview()">
+          ×
+        </button>
+
+      </div>
+
+      <div class="review-section">
+
+        <h3>
+          Selected Jobs
+        </h3>
+
+        <div
+          class="review-job"
+          *ngFor="let job of reviewJobs">
+
+          <strong>
+            {{ job.title || 'Untitled Job' }}
+          </strong>
+
+          <span>
+            {{ job.company || '-' }}
+          </span>
+
+          <small>
+            {{ job.contact_email || 'No recipient email' }}
+          </small>
+
+        </div>
+
+      </div>
+
+      <div class="review-section">
+
+        <h3>
+          Application Message
+        </h3>
+
+        <textarea [(ngModel)]="customMessage">
+        </textarea>
+
+      </div>
+
+      <label class="cv-toggle">
+
+        <input
+          type="checkbox"
+          [(ngModel)]="attachCv" />
+
+        Attach CV / Resume
+
+      </label>
+
+      <div class="modal-actions">
+
+        <button
+          class="cancel"
+          (click)="closeReview()">
+
+          Cancel
+        </button>
+
+        <button
+          class="send"
+          (click)="applySelected()"
+          [disabled]="applying">
+
+          {{ applying ? 'Sending...' : 'Send Application' }}
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
