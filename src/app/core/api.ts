@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class Api {
-  private baseUrl = 'http://127.0.0.1:8000/api';
+  private baseUrl = 'https://job-outreach-app-htcguagnrb9uyk9smhqju2.streamlit.app/';
 
   constructor(private http: HttpClient) {}
 
