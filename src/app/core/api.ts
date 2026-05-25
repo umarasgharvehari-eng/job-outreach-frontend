@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class Api {
-  private baseUrl = 'https://stellar-elegance-production-717d.up.railway.app/api';
+
+  private baseUrl = 'https://my-dev--job-bot-6z1y.diploi.me/api';
 
   constructor(private http: HttpClient) {}
 
